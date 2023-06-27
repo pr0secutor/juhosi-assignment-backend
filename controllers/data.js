@@ -32,7 +32,7 @@ const createOrder = (req, res) => {
 };
 
 const fecthData = async (req,res) => {
-  db.query("SELECT orders.quantity,orders.weight,orders.box_count,orders.created_by FROM orders INNER JOIN users ON orders.created_by=users.email", async(error,result) => {
+  db.query("SELECT orders.created_by,SUM(orders.quantity),SUM(orders.weight),SUM(orders.box_count) FROM orders GROUP BY orders.created_by", async(error,result) => {
     return res.status(200).json(Success("Data fetched...",undefined,result));
   })
 }
