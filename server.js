@@ -11,7 +11,7 @@ app.use(cors());
 app.use(bodyParser.json({ extend: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 db.connect((error) => {
   if (error) console.log(error);

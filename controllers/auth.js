@@ -15,7 +15,9 @@ const login = async (req, res) => {
     [email],
     async (error, results) => {
       console.log(results);
-      if (!results) return res.status(404).json(AppError("User Not Found..."));
+      if (JSON.stringify(results) === "[]") {
+        return res.status(404).json(AppError("User Not Found..."));
+      }
       const passwordMatch = await bcrypt.compare(password, results[0].password);
       if (passwordMatch) {
         const token = generateToken(results[0].email);
